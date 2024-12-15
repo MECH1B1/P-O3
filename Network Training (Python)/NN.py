@@ -11,9 +11,9 @@ import tf2onnx
 def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_columns):
     # Define the neural network using the Functional API
     inputs = tf.keras.Input(shape=(X_train.shape[1],), name="input_layer")
-    x = tf.keras.layers.Dense(16, activation='relu', name="dense_16")(inputs)
-    x = tf.keras.layers.Dense(32, activation='relu', name="dense_32")(x)
-    x = tf.keras.layers.Dense(64, activation='relu', name="dense_64")(x)
+    x = tf.keras.layers.Dense(8, activation='relu', name="dense_16")(inputs)
+    x = tf.keras.layers.Dense(8, activation='relu', name="dense_32")(x)
+    x = tf.keras.layers.Dense(8, activation='relu', name="dense_64")(x)
     outputs = tf.keras.layers.Dense(y_train.shape[1], name="output_layer")(x)
 
     model = tf.keras.Model(inputs=inputs, outputs=outputs, name="animator_model")
