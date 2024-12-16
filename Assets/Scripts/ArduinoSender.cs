@@ -18,7 +18,7 @@ public class ArduinoSender : MonoBehaviour
     public bool large = false;
     public bool hard = false;
     public bool pinch = false;
-    bool tactile = false;
+    public bool tactile = false;
     bool release = false;
 
     

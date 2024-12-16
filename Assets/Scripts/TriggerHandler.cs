@@ -22,7 +22,9 @@ public class TriggerHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "R_ThumbTip")
+        // Debug.Log($"{other.gameObject.name} has entered.");
+
+        if (other.CompareTag("Thumb"))
         {
             thumbTouching = true;
         }
@@ -72,7 +74,7 @@ public class TriggerHandler : MonoBehaviour
 
         if (!allTouching && previouslyTouching)
         {
-            startTactile.Invoke();
+            releaseTactile.Invoke();
         }
 
         previouslyTouching = allTouching;

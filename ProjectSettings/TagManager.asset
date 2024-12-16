@@ -8,9 +8,9 @@ TagManager:
   - Hard;Small
   - Soft;Large
   - Soft;Small
-  - Tumb
   - Index
   - Middle
+  - Thumb
   layers:
   - Default
   - TransparentFX
