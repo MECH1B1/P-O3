@@ -10,19 +10,12 @@ public class TriggerHandler : MonoBehaviour
     bool middleTouching = false;
     bool previouslyTouching = false;
 
-    bool hard;
-    bool large;
-
     public UnityEvent startTactile;
     public UnityEvent releaseTactile;
 
-    public bool test1 = false;
-    public bool test2 = false;
-    public bool test3 = false;
-
     void OnTriggerEnter(Collider other)
     {
-        // Debug.Log($"{other.gameObject.name} has entered.");
+        Debug.Log($"{other.gameObject.name} has entered {gameObject.name}.");
 
         if (other.CompareTag("Thumb"))
         {
@@ -54,18 +47,9 @@ public class TriggerHandler : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        hard = gameObject.tag.Split(';')[0] == "Hard";
-        large = gameObject.tag.Split(';')[1] == "Large";
-    }
-
     void Update()
     {
         bool allTouching = thumbTouching && indexTouching && middleTouching;
-        test1 = thumbTouching;
-        test2 = indexTouching;
-        test3 = middleTouching;
 
         if (allTouching && !previouslyTouching)
         {

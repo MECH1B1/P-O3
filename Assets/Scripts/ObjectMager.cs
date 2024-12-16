@@ -13,11 +13,15 @@ public class ObjectMager : MonoBehaviour
     public GameObject poolNoodle;
     public GameObject flashlight;
     public GameObject waterBottle;
+    public GameObject coin;
 
     public UnityEvent hardChosen;
     public UnityEvent softChosen;
     public UnityEvent largeChosen;
     public UnityEvent smallChosen;
+    public UnityEvent pinchEnabled;
+    public UnityEvent pinchDisabled;
+
 
     public Transform hand;
 
@@ -29,8 +33,10 @@ public class ObjectMager : MonoBehaviour
         poolNoodle.SetActive(false);
         flashlight.SetActive(false);
         waterBottle.SetActive(false);
+        coin.SetActive(false);
         hardChosen.Invoke();
         largeChosen.Invoke();
+        pinchDisabled.Invoke();
         hand.rotation = Quaternion.Euler(0f, 0f, -90f);
     }
 
@@ -41,8 +47,10 @@ public class ObjectMager : MonoBehaviour
         poolNoodle.SetActive(true);
         flashlight.SetActive(false);
         waterBottle.SetActive(false);
+        coin.SetActive(false);
         softChosen.Invoke();
         largeChosen.Invoke();
+        pinchDisabled.Invoke();
         hand.rotation = Quaternion.Euler(0f, 0f, -90f);
     }
 
@@ -53,8 +61,10 @@ public class ObjectMager : MonoBehaviour
         poolNoodle.SetActive(false);
         flashlight.SetActive(true);
         waterBottle.SetActive(false);
+        coin.SetActive(false);
         hardChosen.Invoke();
         smallChosen.Invoke();
+        pinchDisabled.Invoke();
         hand.rotation = Quaternion.Euler(-16.2f, 0f, -90f);
     }
 
@@ -65,9 +75,39 @@ public class ObjectMager : MonoBehaviour
         poolNoodle.SetActive(false);
         flashlight.SetActive(false);
         waterBottle.SetActive(true);
+        coin.SetActive(false);
         softChosen.Invoke();
         smallChosen.Invoke();
+        pinchDisabled.Invoke();
         hand.rotation = Quaternion.Euler(-16.2f, 0f, -90f);
+    }
+
+    public void SetCoin()
+    {
+        table.SetActive(true);
+        glassBottle.SetActive(false);
+        poolNoodle.SetActive(false);
+        flashlight.SetActive(false);
+        waterBottle.SetActive(false);
+        coin.SetActive(true);
+        hardChosen.Invoke();
+        smallChosen.Invoke();
+        pinchEnabled.Invoke();
+        hand.rotation = Quaternion.Euler(0f, 0f, -90f);
+    }
+
+    public void SetNone()
+    {
+        table.SetActive(true);
+        glassBottle.SetActive(false);
+        poolNoodle.SetActive(false);
+        flashlight.SetActive(false);
+        waterBottle.SetActive(false);
+        coin.SetActive(false);
+        softChosen.Invoke();
+        smallChosen.Invoke();
+        pinchEnabled.Invoke();
+        hand.rotation = Quaternion.Euler(0f, 0f, -90f);
     }
 
     public void EnterMenu()
@@ -80,17 +120,5 @@ public class ObjectMager : MonoBehaviour
     {
         objectMenuButton.SetActive(true);
         objectMenu.SetActive(false);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

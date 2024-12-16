@@ -89,6 +89,16 @@ public class ArduinoSender : MonoBehaviour
         hard = true;
     }
 
+    public void PinchOn()
+    {
+        pinch = true;
+    }
+
+    public void PinchOff()
+    {
+        pinch = false;
+    }
+
     private void SendActuatorValues(int motors12PWM, int motor3PWM, int motor4PWM, int solenoid1State, int solenoid2State, int servoPosition)
     {
         // Construct the message in the format "A:M1,M2,M3,M4,V1,V2,S"
