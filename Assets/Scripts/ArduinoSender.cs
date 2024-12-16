@@ -15,7 +15,9 @@ public class ArduinoSender : MonoBehaviour
     public int tactilePWM;
     bool M12;
     bool M4;
+
     bool release = false;
+    float releaseTimer = 0f;
 
     public float pumpTime = 2.0f;
     float pumpTimer = 0f;
@@ -25,8 +27,6 @@ public class ArduinoSender : MonoBehaviour
     public bool pinch = false;
     public bool tactile = false;
     
-    private float releaseTime = 0;
-
     void Start()
     {
         serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
@@ -35,6 +35,8 @@ public class ArduinoSender : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+
+        release = (Time.time < releaseTimer);
 
         M12 = (Time.time < pumpTimer);
         M4 = (Time.time < pumpTimer);
@@ -48,13 +50,12 @@ public class ArduinoSender : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            release = true;
-            releaseTime = Time.time;
+            ReleaseKin();
         }
 
-        if (releaseTime + updateInterval <= Time.time)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            release = false;
+            Pump();
         }
     }
 
@@ -71,6 +72,21 @@ public class ArduinoSender : MonoBehaviour
     public void Pump()
     {
         pumpTimer = Time.time + pumpTime;
+    }
+
+    public void ReleaseKin()
+    {
+        releaseTimer = Time.time + updateInterval;
+    }
+
+    public void OpenGate()
+    {
+        hard = false;
+    }
+
+    public void CloseGate()
+    {
+        hard = true;
     }
 
     private void SendActuatorValues(int motors12PWM, int motor3PWM, int motor4PWM, int solenoid1State, int solenoid2State, int servoPosition)
