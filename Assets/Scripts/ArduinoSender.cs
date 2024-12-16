@@ -10,17 +10,20 @@ public class ArduinoSender : MonoBehaviour
     public float updateInterval = 0.5f;
     private float timer = 0.0f;
 
-    public int motors12PWM;
-    public int motor3PWM;
-    public int motor4PWM;
+    public int thumbIndexPWM;
+    public int middlePWM;
     public int tactilePWM;
+    bool M12;
+    bool M4;
+    bool release = false;
+
+    public float pumpTime = 2.0f;
+    float pumpTimer = 0f;
 
     public bool large = false;
     public bool hard = false;
     public bool pinch = false;
     public bool tactile = false;
-    bool release = false;
-
     
     private float releaseTime = 0;
 
@@ -33,15 +36,13 @@ public class ArduinoSender : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        M12 = (Time.time < pumpTimer);
+        M4 = (Time.time < pumpTimer);
+
         // Periodically send values to the Arduino
         if (timer >= updateInterval)
         {
-            if (large)
-            {
-                SendActuatorValues(motors12PWM, motors12PWM, motor3PWM, (tactile ? motor4PWM : 0), (pinch ? 0 : 1), (release ? 1 : 0), (hard ? 0 : 180));
-            } else {
-                SendActuatorValues(0, 0, 0, (tactile ? motor4PWM : 0), (pinch ? 0 : 1), (release ? 1 : 0), (hard ? 0 : 180));
-            }
+            SendActuatorValues((M12 ? thumbIndexPWM : 0), (tactile ? tactilePWM : 0), (M4 ? middlePWM : 0), (pinch ? 0 : 1), (release ? 1 : 0), (hard ? 0 : 180));
             timer = 0.0f;
         }
 
@@ -67,10 +68,15 @@ public class ArduinoSender : MonoBehaviour
         tactile = true;
     }
 
-    private void SendActuatorValues(int motor1PWM, int motor2PWM, int motor3PWM, int motor4PWM, int solenoid1State, int solenoid2State, int servoPosition)
+    public void Pump()
+    {
+        pumpTimer = Time.time + pumpTime;
+    }
+
+    private void SendActuatorValues(int motors12PWM, int motor3PWM, int motor4PWM, int solenoid1State, int solenoid2State, int servoPosition)
     {
         // Construct the message in the format "A:M1,M2,M3,M4,V1,V2,S"
-        string message = $"A:{motor1PWM},{motor2PWM},{motor3PWM},{motor4PWM},{solenoid1State},{solenoid2State},{servoPosition}";
+        string message = $"A:{motors12PWM},0,{motor3PWM},{motor4PWM},{solenoid1State},{solenoid2State},{servoPosition}";
         Debug.Log($"Sending values: {message}");
 
         // Send the message to the Arduino

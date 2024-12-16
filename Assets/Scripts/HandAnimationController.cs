@@ -10,13 +10,13 @@ public class HandAnimationController : MonoBehaviour
 
     // Define the blend tree parameters for each finger group
     [Header("Blend Tree Parameter Names")]
-    public string pinchParam1 = "PinchBlend";
-    public string thumbParam1 = "ThumbBlend1";
-    public string thumbParam2 = "ThumbBlend2";
-    public string indexParam1 = "IndexBlend1";
-    public string indexParam2 = "IndexBlend2";
-    public string middleRingLittleParam1 = "MiddleRingLittleBlend1";
-    public string middleRingLittleParam2 = "MiddleRingLittleBlend2";
+    public string pinchParam1 = "Pinch";
+    public string thumbParam1 = "Thumb_param1";
+    public string thumbParam2 = "Thumb_param2";
+    public string indexParam1 = "Index_param1";
+    public string indexParam2 = "Index_param2";
+    public string middleRingLittleParam1 = "MiddleRingLittle_param1";
+    public string middleRingLittleParam2 = "MiddleRingLittle_param1";
 
     public bool loopSequence = false;
 
