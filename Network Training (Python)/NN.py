@@ -8,12 +8,12 @@ import json
 import tf2onnx
 
 
-def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_columns):
+def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_columns, model_name):
     # Define the neural network using the Functional API
     inputs = tf.keras.Input(shape=(X_train.shape[1],), name="input_layer")
-    x = tf.keras.layers.Dense(8, activation='relu', name="dense_16")(inputs)
-    x = tf.keras.layers.Dense(8, activation='relu', name="dense_32")(x)
-    x = tf.keras.layers.Dense(8, activation='relu', name="dense_64")(x)
+    x = tf.keras.layers.Dense(8, activation='relu', name="1_dense_8")(inputs)
+    x = tf.keras.layers.Dense(8, activation='relu', name="2_dense_8")(x)
+    x = tf.keras.layers.Dense(8, activation='relu', name="3_dense_8")(x)
     outputs = tf.keras.layers.Dense(y_train.shape[1], name="output_layer")(x)
 
     model = tf.keras.Model(inputs=inputs, outputs=outputs, name="animator_model")
@@ -25,9 +25,9 @@ def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_
     model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=50, batch_size=32)
 
     # Save the model and scalers
-    model.save('animator_nn.keras')
-    joblib.dump(scaler_X, 'scaler_X.save')
-    joblib.dump(scaler_y, 'scaler_y.save')
+    model.save(f'{model_name}.keras')
+    joblib.dump(scaler_X, f'{model_name}_scaler_X.save')
+    joblib.dump(scaler_y, f'{model_name}_scaler_y.save')
 
     # Save the scalers
     with open("input_scaler.json", "w") as f:
@@ -39,13 +39,13 @@ def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_
     # Convert to ONNX
     spec = (tf.TensorSpec((None, X_train.shape[1]), tf.float32),)
     onnx_model, _ = tf2onnx.convert.from_keras(model, input_signature=spec, opset=13)
-    with open("animator_nn.onnx", "wb") as f:
+    with open(f"{model_name}.onnx", "wb") as f:
         f.write(onnx_model.SerializeToString())
 
-    print("Model saved as 'animator_nn.keras' and 'animator_nn.onnx'.")
+    print(f"Model saved as '{model_name}.keras' and '{model_name}.onnx'.")
 
 
-def main():
+if __name__ == "__main__":
     # Load the CSV data
     data = pd.read_csv('converted.csv')
 
@@ -83,10 +83,9 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_scaled, test_size=0.2, random_state=42)
 
     # Create, train, and save the neural network
-    create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_columns)
+    create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_columns, "888_r1023_nm_v1")
 
     print("Training complete.")
 
 
-# Run the main function
-main()
+
