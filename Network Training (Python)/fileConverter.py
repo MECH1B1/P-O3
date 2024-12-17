@@ -4,8 +4,9 @@ matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import csv
 
-def transform(data):
-    return data / 200 - 0.8
+
+def transform(data, sensor):
+    return data if sensor == 6 else data / 200 - 0.8
 
 
 def shift_sensor_data(input_csv, output_csv, delay_, remove_value, snapshot_interval=0.1):
@@ -48,6 +49,7 @@ def shift_sensor_data(input_csv, output_csv, delay_, remove_value, snapshot_inte
 def merge_csv_files(input_csv1, input_csv2, output_csv="merged.csv"):
     """
     Merges two CSV files with the same format into a single file.
+    The 'Time' column in the second file is adjusted by adding the maximum 'Time' value from the first file.
 
     Parameters:
     - input_csv1 (str): Path to the first input CSV file.
@@ -62,7 +64,13 @@ def merge_csv_files(input_csv1, input_csv2, output_csv="merged.csv"):
         print(f"Rows in {input_csv1}: {len(df1)}")
         print(f"Rows in {input_csv2}: {len(df2)}")
 
-        # Append the second DataFrame to the first
+        # Get the maximum 'Time' value from the first DataFrame
+        max_time_df1 = df1['Time'].iloc[-1]  # Last row's Time value
+
+        # Adjust the 'Time' column in the second DataFrame
+        df2['Time'] = df2['Time'] + max_time_df1
+
+        # Append the adjusted second DataFrame to the first
         merged_df = pd.concat([df1, df2], ignore_index=True)
 
         # Save the merged DataFrame to a new CSV file
@@ -92,7 +100,7 @@ def plot_data(data_file, parameter_name, sensor_number, time_lower_bound, time_u
         plt.plot(filtered_data['Time'], filtered_data[parameter_name], label="Parameter", color='blue', linewidth=2)
 
         # Plot Sensor 2
-        plt.plot(filtered_data['Time'], transform(filtered_data.iloc[:, 7+sensor_number]), label='Sensor', color='red',
+        plt.plot(filtered_data['Time'], transform(filtered_data.iloc[:, 7+sensor_number], sensor_number), label='Sensor', color='red',
                  linestyle=':')
 
         # Configure the plot
@@ -110,14 +118,16 @@ def plot_data(data_file, parameter_name, sensor_number, time_lower_bound, time_u
 if __name__ == "__main__":
 
     # Input file path
-    input_file = "training 1712.csv"
-    output_file = "converted2.csv"
+    shift_input_file = "training 1712.csv"
+    shift_output_file = "converted2.csv"
 
-    merge_csv_files("converted.csv", "converted2.csv", output_csv="merged.csv")
+    shift_sensor_data(shift_input_file, shift_output_file, -0.1, 900)
+
+    merge_csv_files("converted.csv", shift_output_file, output_csv="merged.csv")
 
     # Shift sensor data with the specified delay
     # shift_sensor_data(input_file, output_file,-0.1 ,900)
-    # plot_data(output_file, "ThumbBlend1", 3, 0, 1000)
+    plot_data("merged.csv", "IndexBlend1", 4, 0, 1000000)
 
     """
     # File names can be adjusted here
