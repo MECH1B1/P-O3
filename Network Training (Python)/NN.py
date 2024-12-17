@@ -22,7 +22,7 @@ def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_
     model.compile(optimizer='adam', loss='mean_squared_error')
 
     # Train the model
-    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=50, batch_size=32)
+    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=70, batch_size=32)
 
     # Save the model and scalers
     model.save(f'{model_name}.keras')
@@ -30,10 +30,10 @@ def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_
     joblib.dump(scaler_y, f'{model_name}_scaler_y.save')
 
     # Save the scalers
-    with open("input_scaler.json", "w") as f:
+    with open(f"{model_name}_input_scaler.json", "w") as f:
         json.dump({"mean": scaler_X.mean_.tolist(), "std": scaler_X.scale_.tolist()}, f)
 
-    with open("output_scaler.json", "w") as f:
+    with open(f"{model_name}_output_scaler.json", "w") as f:
         json.dump({"mean": scaler_y.mean_.tolist(), "std": scaler_y.scale_.tolist()}, f)
 
     # Convert to ONNX
@@ -47,7 +47,7 @@ def create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_
 
 if __name__ == "__main__":
     # Load the CSV data
-    data = pd.read_csv('converted.csv')
+    data = pd.read_csv('merged.csv')
 
     # Display the first few rows to check the structure
     print(data.head())
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_scaled, test_size=0.2, random_state=42)
 
     # Create, train, and save the neural network
-    create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_columns, "888_r1023_nm_v1")
+    create_network(X_train, y_train, X_test, y_test, scaler_X, scaler_y, sensor_columns, "888_r1023_nm_v2")
 
     print("Training complete.")
 

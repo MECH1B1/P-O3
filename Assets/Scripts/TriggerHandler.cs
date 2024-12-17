@@ -10,6 +10,12 @@ public class TriggerHandler : MonoBehaviour
     bool middleTouching = false;
     bool previouslyTouching = false;
 
+    public ArduinoSender arduinoSender;
+
+    public Renderer handRenderer;
+    public Material white;
+    public Material green;
+
     public UnityEvent startTactile;
     public UnityEvent releaseTactile;
 
@@ -49,16 +55,20 @@ public class TriggerHandler : MonoBehaviour
 
     void Update()
     {
-        bool allTouching = thumbTouching && indexTouching && middleTouching;
+        bool allTouching = thumbTouching && indexTouching && (middleTouching || arduinoSender.pinch);
+
+        Debug.Log($"Thumb: {thumbTouching}, Ind: {indexTouching}, Mid: {middleTouching}");
 
         if (allTouching && !previouslyTouching)
         {
             startTactile.Invoke();
+            handRenderer.material = green;
         }
 
         if (!allTouching && previouslyTouching)
         {
             releaseTactile.Invoke();
+            handRenderer.material = white;
         }
 
         previouslyTouching = allTouching;

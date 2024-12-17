@@ -110,12 +110,14 @@ def plot_data(data_file, parameter_name, sensor_number, time_lower_bound, time_u
 if __name__ == "__main__":
 
     # Input file path
-    input_file = "HandAnimatorParametersWithSensors.csv"
-    output_file = "converted.csv"
+    input_file = "training 1712.csv"
+    output_file = "converted2.csv"
+
+    merge_csv_files("converted.csv", "converted2.csv", output_csv="merged.csv")
 
     # Shift sensor data with the specified delay
-    shift_sensor_data(input_file, output_file,-0.1 ,900)
-    plot_data(output_file, "ThumbBlend1", 3, 0, 1000)
+    # shift_sensor_data(input_file, output_file,-0.1 ,900)
+    # plot_data(output_file, "ThumbBlend1", 3, 0, 1000)
 
     """
     # File names can be adjusted here

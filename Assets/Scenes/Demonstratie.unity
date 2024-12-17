@@ -184,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f5fbbe0fbb4e8824e867c48d964aa916, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5819900291352614659, guid: f5fbbe0fbb4e8824e867c48d964aa916, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2193,9 +2193,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serialController: {fileID: 1500299711}
   updateInterval: 0.5
-  thumbIndexPWM: 100
-  middlePWM: 100
-  tactilePWM: 100
+  thumbIndexPWM: 255
+  middlePWM: 255
+  tactilePWM: 255
   pumpTime: 2
   large: 1
   hard: 1
@@ -2887,7 +2887,7 @@ PrefabInstance:
     - target: {fileID: 7551716973457037170, guid: 86b67724851e7ee448672aa37dea7635, type: 3}
       propertyPath: onnxModel
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: d66ea246be78fc640a8e554f5f5f8a61, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: f7603933fd12fcb4bac646eb7d376df7, type: 3}
     - target: {fileID: 7551716973457037170, guid: 86b67724851e7ee448672aa37dea7635, type: 3}
       propertyPath: handAnimator
       value: 
@@ -2899,11 +2899,11 @@ PrefabInstance:
     - target: {fileID: 7551716973457037170, guid: 86b67724851e7ee448672aa37dea7635, type: 3}
       propertyPath: inputScalerData
       value: 
-      objectReference: {fileID: 4900000, guid: 0b5385817769cdb47bc92b7db1acf361, type: 3}
+      objectReference: {fileID: 4900000, guid: 5a0591fa41ded784c93adf4b2f57e0a1, type: 3}
     - target: {fileID: 7551716973457037170, guid: 86b67724851e7ee448672aa37dea7635, type: 3}
       propertyPath: outputScalerData
       value: 
-      objectReference: {fileID: 4900000, guid: 398679a8edf228b44ac69dac4a0ac511, type: 3}
+      objectReference: {fileID: 4900000, guid: 1fd6d32693b98874f906c468e9a2ce7e, type: 3}
     - target: {fileID: 8787149928128397267, guid: 86b67724851e7ee448672aa37dea7635, type: 3}
       propertyPath: m_TagString
       value: Middle
@@ -4119,7 +4119,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1320343000}
   - component: {fileID: 1320342999}
-  - component: {fileID: 1320342998}
   m_Layer: 0
   m_Name: Secondary Camera
   m_TagString: MainCamera
@@ -4127,14 +4126,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1320342998
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320342997}
-  m_Enabled: 1
 --- !u!20 &1320342999
 Camera:
   m_ObjectHideFlags: 0

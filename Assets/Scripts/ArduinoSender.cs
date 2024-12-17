@@ -44,7 +44,7 @@ public class ArduinoSender : MonoBehaviour
         // Periodically send values to the Arduino
         if (timer >= updateInterval)
         {
-            SendActuatorValues((M12 ? thumbIndexPWM : 0), (tactile ? tactilePWM : 0), (M4 ? middlePWM : 0), (pinch ? 0 : 1), (release ? 1 : 0), (hard ? 0 : 180));
+            SendActuatorValues((M12 ? thumbIndexPWM : 0), (tactile ? tactilePWM : 0), (M4 ? middlePWM : 0), (release ? 1 : 0), (pinch ? 1 : 0), (hard ? 0 : 180));
             timer = 0.0f;
         }
 

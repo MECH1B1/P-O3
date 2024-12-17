@@ -80,7 +80,6 @@ public class ArduinoController : MonoBehaviour
     {
         // Read values from sliders
         int motor1PWM = Mathf.RoundToInt(motor1Slider.value);
-        int motor2PWM = Mathf.RoundToInt(motor2Slider.value);
         int motor3PWM = Mathf.RoundToInt(motor3Slider.value);
         int motor4PWM = Mathf.RoundToInt(motor4Slider.value);
 
@@ -90,7 +89,7 @@ public class ArduinoController : MonoBehaviour
         int servoPosition = Mathf.RoundToInt(servoSlider.value);       // Should be between 0 and 180
 
         // Construct the message in the format "A:M1,M2,M3,M4,V1,V2,S"
-        string message = $"A:{motor1PWM},{motor2PWM},{motor3PWM},{motor4PWM},{solenoid1State},{solenoid2State},{servoPosition}";
+        string message = $"A:{motor1PWM},0,{motor3PWM},{motor4PWM},{solenoid1State},{solenoid2State},{servoPosition}";
         Debug.Log($"Sending values: {message}");
 
         // Send the message to the Arduino
