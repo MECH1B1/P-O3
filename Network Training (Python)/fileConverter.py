@@ -9,7 +9,7 @@ def transform(data, sensor):
     return data if sensor == 6 else data / 200 - 0.8
 
 
-def shift_sensor_data(input_csv, output_csv, delay_, remove_value, snapshot_interval=0.1):
+def shift_sensor_data(input_csv, output_csv, delay_, remove_value_l, remove_value_u, snapshot_interval=0.1):
     """
     Shifts sensor data in a CSV file based on the specified delay.
 
@@ -23,8 +23,9 @@ def shift_sensor_data(input_csv, output_csv, delay_, remove_value, snapshot_inte
     data_df = pd.read_csv(input_csv)
 
     # Remove rows where any sensor column contains the value 1023
-    sensor_columns = data_df.columns[7:]  # Assuming sensor columns start at index 7
-    data_df = data_df[~(data_df[sensor_columns] >= remove_value).any(axis=1)]
+    sensor_columns = data_df.columns[8:13]  # Assuming sensor columns start at index 7
+    data_df = data_df[~(data_df[sensor_columns] <= remove_value_l).any(axis=1)]
+    data_df = data_df[~(data_df[sensor_columns] >= remove_value_u).any(axis=1)]
 
     # Calculate the shift amount (in rows) for the sensor data
     shift_amount = int(round(delay_ / snapshot_interval))
@@ -34,17 +35,17 @@ def shift_sensor_data(input_csv, output_csv, delay_, remove_value, snapshot_inte
 
     # If the delay is positive, shift sensor columns forward; if negative, shift backward
     if shift_amount > 0:
-        shifted_data.iloc[shift_amount:, 7:] = data_df.iloc[:-shift_amount, 7:].values
-        shifted_data.iloc[:shift_amount, 7:] = 0  # Fill leading rows with zeros
+        shifted_data.iloc[shift_amount:, 8:] = data_df.iloc[:-shift_amount, 8:].values
+        shifted_data.iloc[:shift_amount, 8:] = 0  # Fill leading rows with zeros
     elif shift_amount < 0:
-        shifted_data.iloc[:shift_amount, 7:] = data_df.iloc[-shift_amount:, 7:].values
-        shifted_data.iloc[shift_amount:, 7:] = 0  # Fill trailing rows with zeros
+        shifted_data.iloc[:shift_amount, 8:] = data_df.iloc[-shift_amount:, 8:].values
+        shifted_data.iloc[shift_amount:, 8:] = 0  # Fill trailing rows with zeros
 
     # Write the shifted data to the output CSV file
     shifted_data.to_csv(output_csv, index=False)
     print(f"CSV file successfully processed and saved as {output_csv}")
     print(f"Shift amount (rows): {shift_amount}")
-    print(f"Rows removed with a value above {remove_value}: {len(data_df) - len(shifted_data)}")
+    print(f"Rows removed with a value outside ({remove_value_l}, {remove_value_u}): {len(data_df) - len(shifted_data)}")
 
 def merge_csv_files(input_csv1, input_csv2, output_csv="merged.csv"):
     """
@@ -104,8 +105,8 @@ def plot_data(data_file, parameter_name, sensor_number, time_lower_bound, time_u
                  linestyle=':')
 
         # Configure the plot
-        plt.title(f"Een handparameter en sensor van de wijsvinger geplot over tijd")
-        plt.xlabel("Tijd")
+        plt.title(f"Voorbeeld van een parameter en een sensor bijhorend tot dezelfde vinger")
+        plt.xlabel("Tijdstap")
         plt.ylabel("Waarden")
         plt.legend()
         plt.grid(True)
@@ -121,13 +122,14 @@ if __name__ == "__main__":
     shift_input_file = "training 1712.csv"
     shift_output_file = "converted2.csv"
 
-    shift_sensor_data(shift_input_file, shift_output_file, -0.1, 900)
+    shift_sensor_data(shift_input_file, shift_output_file, -0.1,5, 900)
 
     merge_csv_files("converted.csv", shift_output_file, output_csv="merged.csv")
 
     # Shift sensor data with the specified delay
     # shift_sensor_data(input_file, output_file,-0.1 ,900)
-    plot_data("merged.csv", "IndexBlend1", 4, 0, 1000000)
+    shift_sensor_data("merged.csv", "test.csv", -0.1, 5, 900)
+    plot_data("test.csv", "IndexBlend1", 4, 1250, 1690)
 
     """
     # File names can be adjusted here

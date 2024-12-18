@@ -510,7 +510,7 @@ MonoBehaviour:
   poseSound: {fileID: 8300000, guid: 87fda999733e9344ca55d98a802235ee, type: 3}
   audioDelay: -0.4
   playTransitionSound: 1
-  bendCoefficient: 1
+  bendCoefficient: 0.6
   poseSequences:
   - pinchTarget: 0
     thumb1Target: 0
@@ -577,7 +577,7 @@ MonoBehaviour:
     middleRingLittle2Target: 0
     duration: 1
   useFile: 1
-  fileName: 4StateBin1.json
+  fileName: 4StateBin7.json
   timerTest: 0
 --- !u!82 &590577994
 AudioSource:

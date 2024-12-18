@@ -24,6 +24,8 @@ public class HandController : MonoBehaviour
     private float[] outputMean;
     private float[] outputStd;
 
+    public float bendMultiplier = 1f;
+
     // List of animator parameter names corresponding to predictions
     private List<string> animatorParameters = new List<string>
     {
@@ -117,7 +119,7 @@ public class HandController : MonoBehaviour
         // Unscale predictions
         for (int j = 0; j < predictions.Length; j++)
         {
-            predictions[j] = predictions[j] * outputStd[j] + outputMean[j];
+            predictions[j] = (predictions[j] * outputStd[j] + outputMean[j]) * bendMultiplier;
         }
 
         // Apply predictions to animator parameters

@@ -1053,19 +1053,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 35e48f87b79d2154290790df3579028d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.03
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35e48f87b79d2154290790df3579028d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.03
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35e48f87b79d2154290790df3579028d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.03
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35e48f87b79d2154290790df3579028d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0499
+      value: -0.0694
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35e48f87b79d2154290790df3579028d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1073,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35e48f87b79d2154290790df3579028d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0174
+      value: 0.0101
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35e48f87b79d2154290790df3579028d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1933,7 +1933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arduinoSender: {fileID: 610916523}
-  handRenderer: {fileID: 1398660891}
+  handRenderer: {fileID: 3107590656507729459}
   white: {fileID: 2100000, guid: f956305ef1d4b3046b016c1272b78ba4, type: 2}
   green: {fileID: 2100000, guid: 3c58bc3778829e44288dc36938122a86, type: 2}
   handTouchDelay: 0.02
@@ -2995,7 +2995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &956788069
 Transform:
   m_ObjectHideFlags: 0
@@ -4004,7 +4004,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.008
+  m_Radius: 0.03
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1197567767
 GameObject:
@@ -7876,7 +7876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &896537569788770904
 GameObject:
   m_ObjectHideFlags: 0
@@ -7943,7 +7943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1376463913816155570
 GameObject:
   m_ObjectHideFlags: 0
@@ -8090,8 +8090,8 @@ Transform:
   m_GameObject: {fileID: 1376463913816155570}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2257, y: -0.062, z: 0.0174}
-  m_LocalScale: {x: 0.5161956, y: 0.5161956, z: 0.5161956}
+  m_LocalPosition: {x: -0.2989, y: -0.062, z: -0.0012}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 543148313}
@@ -8674,7 +8674,7 @@ Transform:
   m_GameObject: {fileID: 525090720785086734}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0561, y: 0.0335, z: 0.0323}
+  m_LocalPosition: {x: -0.0739, y: 0.0162, z: 0.0091}
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -8830,6 +8830,7 @@ MonoBehaviour:
   flexDataReader: {fileID: 610916521}
   inputScalerData: {fileID: 4900000, guid: 5a0591fa41ded784c93adf4b2f57e0a1, type: 3}
   outputScalerData: {fileID: 4900000, guid: 1fd6d32693b98874f906c468e9a2ce7e, type: 3}
+  bendMultiplier: 1.3
 --- !u!54 &7551716973487830119
 Rigidbody:
   m_ObjectHideFlags: 0

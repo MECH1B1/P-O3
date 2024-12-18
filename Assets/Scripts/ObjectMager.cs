@@ -106,7 +106,7 @@ public class ObjectMager : MonoBehaviour
         coin.SetActive(false);
         softChosen.Invoke();
         smallChosen.Invoke();
-        pinchEnabled.Invoke();
+        pinchDisabled.Invoke();
         hand.rotation = Quaternion.Euler(0f, 0f, -90f);
     }
 
